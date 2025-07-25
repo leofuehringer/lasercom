@@ -1,6 +1,7 @@
 # LaserCom
 
 **LaserCom** is a Bluetooth-enabled laser rangefinder application designed for capturing and managing distance measurements efficiently. The application connects to Bluetooth-enabled laser measuring devices and allows users to easily copy measurement results to the clipboard with customizable insertion options.
+With LaserCom, the laser rangefinder can be used like a connected Bluetooth keyboard, with each measurement providing a keyboard input. This feature simplifies integration into existing workflows and software applications, allowing measurement values to be directly inserted into documents or spreadsheets.
 
 ## Features
 

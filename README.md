@@ -28,7 +28,7 @@ If you have tested this application with other devices, please feel free to cont
    git clone https://github.com/yourusername/LaserCom.git
    cd LaserCom
    ```
-1. Clone the repository:
+1. Install the required dependencies:
    ```bash
    pip install bluepy pyperclip pyautogui
    ```

@@ -49,5 +49,77 @@ bluepy for Bluetooth Low Energy communication.
 pyperclip for clipboard functionality.
 pyautogui for simulating keyboard inputs.
 
-Kopieren
-You can copy this entire block into your `README.md` file. Just remember to replace `yourusername` with your actual GitHub username. Let me know if you need any more help!
+Here’s an additional section for your `README.md` file that covers the technical implementation details, including the connection setup with `bluepy`, testing with `gatttool`, and how to interpret the measurement results:
+
+
+## Technical Implementation
+
+### Connection Setup with Bluepy
+
+The application uses the `bluepy` library to establish a connection with Bluetooth-enabled laser rangefinders. To test the connection and communicate with the device, you can also use `gatttool`, which is a command-line utility for interacting with Bluetooth Low Energy (BLE) devices.
+
+#### Using Gatttool for Testing
+
+1. Open your terminal and run the following command to start `gatttool` in interactive mode, replacing the MAC address with your device's MAC address:
+   ```bash
+   gatttool -b 40:79:12:9A:E3:88 -I
+   ```
+
+2. Once in interactive mode, connect to the device:
+   ```bash
+   connect
+   ```
+
+3. To start a measurement, you can send the following command to activate the laser:
+   ```bash
+   char-write-req 0x001e c05601001e
+   ```
+   This command must be executed twice: the first time to activate the laser and the second time to initiate the measurement. This simulates pressing the laser button manually.
+
+4. After initiating the measurement, you can request data from the laser using:
+   ```bash
+   char-write-req 0x001f 0200
+   char-write-req 0x001e c0550201001a
+   ```
+
+### Receiving Measurement Values
+
+When you successfully receive data from the laser, it will be in a hex format. The response structure typically starts with a specific header followed by the measurement data.
+
+#### Understanding the Hexadecimal Response
+
+The hex values returned by the laser can be interpreted as follows:
+
+- The first few bytes of the response indicate the command and status.
+- The measurement data is usually found in specific positions within the hex string.
+
+For example, if you receive a hex response like `c055100606007a0094f6463e`, the measurement data can be extracted from the relevant bytes.
+
+#### Converting Hexadecimal to Decimal
+
+To convert the measurement hex value to a decimal number, you can use the following steps:
+
+1. Extract the relevant hex portion (e.g., `007a`).
+2. Convert the hex value to an unsigned integer using Python or an online calculator.
+3. Use the following Python function to convert the hex value to a float:
+   ```python
+   def hex_to_float(hex_value):
+       unsigned_int = int(hex_value, 16)  # Convert hex to unsigned integer
+       packed = struct.pack('I', unsigned_int)  # Pack the integer into bytes
+       float_converted = struct.unpack('f', packed)[0]  # Unpack bytes as a float
+       return float_converted
+   ```
+
+4. Multiply the resulting float by 100 to convert it to centimeters.
+
+For online conversion, you can use tools like:
+- [RapidTables Hex to Decimal Converter](https://www.rapidtables.com/convert/number/hex-to-decimal.html)
+- [Unit Conversion Calculator](https://www.unitconverters.net/)
+
+This section provides a comprehensive overview of how to set up the connection, send commands, and interpret the measurement results from the laser rangefinder.
+
+### Summary of the Section
+- **Connection Setup**: Instructions for using `bluepy` and `gatttool`.
+- **Testing with Gatttool**: Detailed steps to connect and send commands to the laser device.
+- **Receiving Measurement Values**: Explanation of how to interpret the hex response.
+- **Converting Hexadecimal to Decimal**: Steps and code for converting hex values to decimal, including references to online calculators.

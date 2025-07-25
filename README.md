@@ -16,7 +16,13 @@ This application has been tested with the following laser rangefinder:
 
 - **Bosch GLM 50-27 GC**: A reliable and precise laser distance meter that connects via Bluetooth. The application successfully communicates with this device, allowing for accurate distance measurements and data retrieval.
 
-Additionally, other new Bosch laser rangefinders that adhere to the same standard should also work with LaserCom. Older laser measuring devices may function with minor adjustments; however, the return values will need to be evaluated differently. 
+Additionally, other new Bosch laser rangefinders that adhere to the same standard should also work with LaserCom. Older laser measuring devices may function with minor adjustments; however, the return values will need to be evaluated differently.
+
+For example, to interpret the measurement:
+- Send: `C04000EE`
+- Reply: `00 04 13 0E 00 00 32`
+- Change endianness.
+- Calculate distance in mm: `0x00000E13 * 0.05 = 180 mm`.
 
 For more information, you can refer to this [EEVblog forum post](https://www.eevblog.com/forum/projects/hacking-the-bosch-glm-20-laser-measuring-tape/).
 If you have tested this application with other devices, please feel free to contribute by adding your findings!
@@ -28,27 +34,28 @@ If you have tested this application with other devices, please feel free to cont
    git clone https://github.com/yourusername/LaserCom.git
    cd LaserCom
    ```
-1. Install the required dependencies:
+2. Install the required dependencies:
    ```bash
    pip install bluepy pyperclip pyautogui
    ```
 
-
-
 ## Usage
+
+Before running the application, ensure that the laser rangefinder is turned on and Bluetooth is activated. You need to either note down the Bluetooth MAC address from the settings under "Info" or find the MAC address using `gatttool`. Typically, the laser will not be visible through the standard Bluetooth GUI.
+
 To run the application, use the following command:
 ```bash
-  python lasercom.py -mac <MAC_ADDRESS> [-s <insert_option>] [-debug]
-  ```
-Replace <MAC_ADDRESS> with the Bluetooth MAC address of your laser rangefinder.
-Use -s to specify the insertion option (Enter, Tab, Comma, Semicolon).
-Use -debug to enable debug mode and pass a simulated response.
+python lasercom.py -mac <MAC_ADDRESS> [-s <insert_option>] [-debug]
+```
+Replace `<MAC_ADDRESS>` with the Bluetooth MAC address of your laser rangefinder. You can write the MAC address permanently to the text file bosch-bluetoothmac.txt in the smae folder so that you don't have to enter it every time you run the program. 
+
+Use `-s` to specify the insertion option (Enter (default option), Tab, Comma, Semicolon). Use `-debug` to enable debug mode and pass a simulated response.
 
 ## Example
-  ```bash
-  python lasercom.py -mac 40:79:12:9A:E3:88 -s semicolon
-  ```
-  
+```bash
+python lasercom.py -mac 40:79:12:9A:E3:88 -s semicolon
+```
+
 ## Contributing
 Contributions are welcome! Please feel free to submit a pull request or open an issue for any enhancements or bug fixes.
 
@@ -56,18 +63,18 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
-bluepy for Bluetooth Low Energy communication.
-pyperclip for clipboard functionality.
-pyautogui for simulating keyboard inputs.
-
-Here’s an additional section for your `README.md` file that covers the technical implementation details, including the connection setup with `bluepy`, testing with `gatttool`, and how to interpret the measurement results:
-
+- `bluepy` for Bluetooth Low Energy communication.
+- `pyperclip` for clipboard functionality.
+- `pyautogui` for simulating keyboard inputs.
 
 ## Technical Implementation
 
 ### Connection Setup with Bluepy
 
 The application uses the `bluepy` library to establish a connection with Bluetooth-enabled laser rangefinders. To test the connection and communicate with the device, you can also use `gatttool`, which is a command-line utility for interacting with Bluetooth Low Energy (BLE) devices.
+
+## Debug Mode
+Optional debug mode for troubleshooting and development. You can enable debug mode by using the `-debug` flag, and you can also provide a return value in the form of a string after `-debug` to test the program without establishing a connection to the laser.
 
 #### Using Gatttool for Testing
 
@@ -134,3 +141,11 @@ This section provides a comprehensive overview of how to set up the connection, 
 - **Testing with Gatttool**: Detailed steps to connect and send commands to the laser device.
 - **Receiving Measurement Values**: Explanation of how to interpret the hex response.
 - **Converting Hexadecimal to Decimal**: Steps and code for converting hex values to decimal, including references to online calculators.
+```
+
+### Summary of Changes
+- Added instructions in the **Usage** section about turning on the laser and activating Bluetooth.
+- Included information on how to find the Bluetooth MAC address.
+- Mentioned that the MAC address can be permanently written to a text file for convenience.
+- Ensured the overall structure and formatting remained consistent.
+

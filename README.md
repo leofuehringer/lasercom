@@ -10,6 +10,14 @@
 - **Custom Insertion Options**: Choose how measurements are inserted (e.g., Enter, Tab, Comma, Semicolon).
 - **Debug Mode**: Optional debug mode for troubleshooting and development.
 
+## Tested Devices
+
+This application has been tested with the following laser rangefinder:
+
+- **Bosch GLM 50-27 GC**: A reliable and precise laser distance meter that connects via Bluetooth. The application successfully communicates with this device, allowing for accurate distance measurements and data retrieval.
+
+If you have tested this application with other devices, please feel free to contribute by adding your findings!
+
 ## Installation
 
 1. Clone the repository:

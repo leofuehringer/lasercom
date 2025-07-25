@@ -1,7 +1,6 @@
 # LaserCom
 
-**LaserCom** is a Bluetooth-enabled laser rangefinder application designed for capturing and managing distance measurements efficiently. The application connects to Bluetooth-enabled laser measuring devices and allows users to easily copy measurement results to the clipboard with customizable insertion options.
-With LaserCom, the laser rangefinder can be used like a connected Bluetooth keyboard, with each measurement providing a keyboard input. This feature simplifies integration into existing workflows and software applications, allowing measurement values to be directly inserted into documents or spreadsheets.
+**LaserCom** is a Bluetooth-enabled laser rangefinder application designed to communicate and manage distance measurements efficiently. The application connects to Bluetooth-enabled laser measuring devices and allows users to easily copy measurement results to the clipboard with customizable insertion options. With LaserCom, the laser rangefinder can be used like a connected Bluetooth keyboard, providing each measurement as a keyboard input. This feature simplifies integration into existing workflows and software applications, allowing measurement values to be directly inserted into documents or spreadsheets.
 
 ## Features
 - **Laser as Bluetooth Keyboard**: With LaserCom, the laser rangefinder can be used like a connected Bluetooth keyboard, providing keyboard input for each measurement.
@@ -17,6 +16,9 @@ This application has been tested with the following laser rangefinder:
 
 - **Bosch GLM 50-27 GC**: A reliable and precise laser distance meter that connects via Bluetooth. The application successfully communicates with this device, allowing for accurate distance measurements and data retrieval.
 
+Additionally, other new Bosch laser rangefinders that adhere to the same standard should also work with LaserCom. Older laser measuring devices may function with minor adjustments; however, the return values will need to be evaluated differently. 
+
+For more information, you can refer to this [EEVblog forum post](https://www.eevblog.com/forum/projects/hacking-the-bosch-glm-20-laser-measuring-tape/).
 If you have tested this application with other devices, please feel free to contribute by adding your findings!
 
 ## Installation

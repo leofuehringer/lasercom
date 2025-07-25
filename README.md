@@ -4,7 +4,7 @@
 With LaserCom, the laser rangefinder can be used like a connected Bluetooth keyboard, with each measurement providing a keyboard input. This feature simplifies integration into existing workflows and software applications, allowing measurement values to be directly inserted into documents or spreadsheets.
 
 ## Features
-
+- **Laser as Bluetooth Keyboard**: With LaserCom, the laser rangefinder can be used like a connected Bluetooth keyboard, providing keyboard input for each measurement.
 - **Bluetooth Connectivity**: Seamlessly connect to Bluetooth laser rangefinders.
 - **Distance Measurement**: Capture accurate distance measurements.
 - **Clipboard Integration**: Automatically copy results to the clipboard.

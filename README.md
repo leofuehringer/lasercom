@@ -45,9 +45,9 @@ Before running the application, ensure that the laser rangefinder is turned on a
 
 To run the application, use the following command:
 ```bash
-python lasercom.py [-mac <MAC_ADDRESS>[ [-s <insert_option>] [-debug]
+python lasercom.py [-mac <MAC_ADDRESS>] [-post-insert-action <insert_option>] [-debug]
 ```
-
+Here are the corrected argument names based on your provided code, along with an example call for the program:
 
 ## Arguments
 
@@ -56,36 +56,36 @@ When executing the application, the following arguments can be provided:
 1. **`-mac <MAC_ADDRESS>`**: 
    - This argument is used to specify the Bluetooth MAC address of the laser rangefinder. Replace `<MAC_ADDRESS>` with the actual MAC address of the device. Example: `-mac 40:79:12:9A:E3:88`. You can write the MAC address permanently to the text file bosch-bluetoothmac.txt in the smae folder so that you don't have to enter it every time you run the program. 
 
-2. **`-s <insert_option>`**:
+2. **`-debug [<SIMULATED_RESPONSE>]`**:
+   - This argument enables debug mode, which provides useful information for troubleshooting and development. You can also provide a simulated response directly after `-debug`. Example: `-debug c055100606007a0094f6463e00000000000000004e`.
+
+3. **`-post-insert-action <INSERT_TYPE>`**:
    - This argument allows you to set how the measurement values are inserted. Possible options include:
      - `Enter`: Inserts the measurement with the Enter key (default option).
      - `Tab`: Inserts the measurement with the Tab key.
      - `Comma`: Inserts the measurement with a comma.
      - `Semicolon`: Inserts the measurement with a semicolon.
-   - Example: `-s semicolon`.
-
-3. **`-debug`**:
-   - This argument enables debug mode, which provides useful information for troubleshooting and development. If you want to test with a simulated return value, you can specify it directly after `-debug`. Example: `-debug 00 04 13 0E 00 00 32`.
+   - Example: `-post-insert-action Semicolon`.
 
 4. **`-verbose`**:
    - By adding this argument, verbose mode is activated, which allows for more detailed output during program execution. This is helpful for tracking the program's flow more closely.
+
+5. **`-separator <TYPE>`**:
+   - This argument allows you to specify how decimal points are represented. Possible values are:
+     - `comma`: Uses a comma as the decimal separator  (default option).
+     - `point`: Uses a point as the decimal separator.
+   - Example: `-separator comma`.
 
 ## Example of Using the Arguments
 
 To run the application with all possible arguments, the command might look like this:
 
 ```bash
-python lasercom.py -mac 40:79:12:9A:E3:88 -s semicolon -debug -verbose
+python lasercom.py -mac 40:79:12:9A:E3:88 -post-insert-action Semicolon -debug -verbose -separator comma
 ```
 
-In this example, the application is started with the specified MAC address, the insertion option set to semicolon, debug mode enabled, and verbose mode activated.
+In this example, the application is started with the specified MAC address, the insertion option set to semicolon, debug mode enabled, verbose mode activated, and the decimal separator set to comma.
 
-
-
-## Example
-```bash
-python lasercom.py -mac 40:79:12:9A:E3:88 -s semicolon
-```
 
 ## Contributing
 Contributions are welcome! Please feel free to submit a pull request or open an issue for any enhancements or bug fixes.

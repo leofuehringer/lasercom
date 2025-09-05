@@ -76,9 +76,9 @@ When executing the application, the following arguments can be provided:
      - `point`: Uses a point as the decimal separator.
    - Example: `-separator comma`.
   
-6. **`offset <OFFSET_VALUE>:`**:
+6. **`-offset <OFFSET_VALUE>`**:
    - This argument allows you to specify an offset value in millimeters that will be added to the measured length. If the offset value is negative, it will be subtracted from the measured length.
-   - Example: -offset 10 (adds 10 mm to the measured length) or -offset -5 (subtracts 5 mm from the measured length).
+   - Example: `-offset 10` (adds 10 mm to the measured length) or `-offset -5` (subtracts 5 mm from the measured length).
 
 
 ## Example of Using the Arguments

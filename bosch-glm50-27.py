@@ -11,6 +11,7 @@ debug_mode = False  # Set debug mode to False by default
 verbose = False  # Default verbose mode
 separator = "comma"  # Default separator
 offset = 0  # Default offset in millimeters
+output_unit = "cm"  # Default output unit
 
 class LaserDelegate(btle.DefaultDelegate):
     def __init__(self, insert_type):
@@ -25,6 +26,12 @@ class LaserDelegate(btle.DefaultDelegate):
         if measurement_value is not None:
             # Apply the offset to the measurement value (convert mm to cm)
             adjusted_value = measurement_value + (offset / 10.0)  # Convert offset from mm to cm
+            
+            # Convert adjusted value to the desired output unit
+            if output_unit == "mm":
+                adjusted_value *= 10  # Convert cm to mm
+            elif output_unit == "m":
+                adjusted_value /= 100  # Convert cm to m
             
             # Format the measurement value based on the separator
             if separator == "point":
@@ -98,7 +105,7 @@ def print_response(hex_values, insert_type):
             print("Received non-usable return values.")
 
 def main():
-    global debug_mode, verbose, separator, offset
+    global debug_mode, verbose, separator, offset, output_unit
     mac_address = None
     simulated_response = None
     insert_type = "Enter"  # Default insertion type
@@ -130,6 +137,10 @@ def main():
                 except ValueError:
                     print("Invalid offset value. It should be a number.")
                     sys.exit(1)
+        elif sys.argv[i] == "-outputunit":
+            if i + 1 < len(sys.argv) and sys.argv[i + 1] in ["mm", "cm", "m"]:
+                output_unit = sys.argv[i + 1]  # Set the output unit
+                i += 1  # Increment index to skip the output unit value
 
     # Get the directory of the script
     script_dir = os.path.dirname(os.path.abspath(__file__))

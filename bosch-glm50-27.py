@@ -39,8 +39,25 @@ class LaserDelegate(btle.DefaultDelegate):
             else:
                 formatted_value = str(adjusted_value)
 
+            # Copy the formatted measurement value to the clipboard
+            pyperclip.copy(formatted_value)  # Copy the formatted value
             if verbose: 
-                print(f"Formatted measurement value: {formatted_value}")  # Example output
+                print(f"Formatted measurement value: {formatted_value} (copied to clipboard)")
+
+            # Insert the value at the current cursor position
+            time.sleep(0.2)  # Wait to ensure the clipboard is ready
+            pyautogui.hotkey('ctrl', 'v')  # Simulate Ctrl+V to paste
+            time.sleep(0.2)  # Wait to ensure the clipboard is ready
+            
+            # Insert the desired text based on the specified insertion type
+            if self.insert_type == "Enter":
+                pyautogui.press('enter')
+            elif self.insert_type == "Tab":
+                pyautogui.press('tab')
+            elif self.insert_type == "Comma":
+                pyautogui.typewrite(', ')
+            elif self.insert_type == "Semicolon":
+                pyautogui.typewrite('; ')
 
 def connect_to_laser(mac_address):
     print(f"Connecting to laser with MAC address {mac_address}...")
@@ -73,31 +90,6 @@ def print_response(hex_values, insert_type):
         measurement_value = hex_to_float(measurement_hex_value)  # Convert hex to float
         measurement_value_cm = measurement_value * 100  # Convert to centimeters
         measurement_value_cm_rounded = round(measurement_value_cm, 1)  # Round to one decimal place
-        
-        # Format the measurement value based on the separator
-        if separator == "comma":
-            measurement_value_cm_rounded_str = str(measurement_value_cm_rounded).replace('.', ',')
-        else:
-            measurement_value_cm_rounded_str = str(measurement_value_cm_rounded)
-
-        pyperclip.copy(measurement_value_cm_rounded_str)  # Copy the measurement to the clipboard
-        if verbose: 
-            print(f"Measured length: {measurement_value_cm_rounded_str} (copied to clipboard)")
-
-        # Insert the value at the current cursor position
-        time.sleep(0.2)  # Wait to ensure the clipboard is ready
-        pyautogui.hotkey('ctrl', 'v')  # Simulate Ctrl+V to paste
-        time.sleep(0.2)  # Wait to ensure the clipboard is ready
-        
-        # Insert the desired text based on the specified insertion type
-        if insert_type == "Enter":
-            pyautogui.press('enter')
-        elif insert_type == "Tab":
-            pyautogui.press('tab')
-        elif insert_type == "Comma":
-            pyautogui.typewrite(', ')
-        elif insert_type == "Semicolon":
-            pyautogui.typewrite('; ')
         
         return measurement_value_cm_rounded  # Return the original measurement value for offset calculation
     else:

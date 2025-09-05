@@ -10,6 +10,7 @@ import pyautogui
 debug_mode = False  # Set debug mode to False by default
 verbose = False  # Default verbose mode
 separator = "comma"  # Default separator
+offset = 0  # Default offset in millimeters
 
 class LaserDelegate(btle.DefaultDelegate):
     def __init__(self, insert_type):
@@ -22,11 +23,14 @@ class LaserDelegate(btle.DefaultDelegate):
             print("Indication received:", hex_values)
         measurement_value = print_response(hex_values, self.insert_type)  # Pass insert_type to the response processing
         if measurement_value is not None:
+            # Apply the offset to the measurement value (convert mm to cm)
+            adjusted_value = measurement_value + (offset / 10.0)  # Convert offset from mm to cm
+            
             # Format the measurement value based on the separator
             if separator == "point":
-                formatted_value = str(measurement_value).replace(',', '.')
+                formatted_value = str(adjusted_value).replace(',', '.')
             else:
-                formatted_value = str(measurement_value)
+                formatted_value = str(adjusted_value)
 
             if verbose: 
                 print(f"Formatted measurement value: {formatted_value}")  # Example output
@@ -87,12 +91,14 @@ def print_response(hex_values, insert_type):
             pyautogui.typewrite(', ')
         elif insert_type == "Semicolon":
             pyautogui.typewrite('; ')
+        
+        return measurement_value_cm_rounded  # Return the original measurement value for offset calculation
     else:
         if debug_mode: 
             print("Received non-usable return values.")
 
 def main():
-    global debug_mode, verbose, separator
+    global debug_mode, verbose, separator, offset
     mac_address = None
     simulated_response = None
     insert_type = "Enter"  # Default insertion type
@@ -116,6 +122,14 @@ def main():
             if i + 1 < len(sys.argv) and sys.argv[i + 1] in ["comma", "point"]:
                 separator = sys.argv[i + 1]  # Set the separator
                 i += 1  # Increment index to skip the separator value
+        elif sys.argv[i] == "-offset":
+            if i + 1 < len(sys.argv):
+                try:
+                    offset = float(sys.argv[i + 1])  # Set the offset value in mm
+                    i += 1  # Increment index to skip the offset value
+                except ValueError:
+                    print("Invalid offset value. It should be a number.")
+                    sys.exit(1)
 
     # Get the directory of the script
     script_dir = os.path.dirname(os.path.abspath(__file__))

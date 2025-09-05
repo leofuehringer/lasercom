@@ -75,13 +75,18 @@ When executing the application, the following arguments can be provided:
      - `comma`: Uses a comma as the decimal separator  (default option).
      - `point`: Uses a point as the decimal separator.
    - Example: `-separator comma`.
+  
+6. **`offset <OFFSET_VALUE>:`**:
+   - This argument allows you to specify an offset value in millimeters that will be added to the measured length. If the offset value is negative, it will be subtracted from the measured length.
+   - Example: -offset 10 (adds 10 mm to the measured length) or -offset -5 (subtracts 5 mm from the measured length).
+
 
 ## Example of Using the Arguments
 
 To run the application with all possible arguments, the command might look like this:
 
 ```bash
-python lasercom.py -mac 40:79:12:9A:E3:88 -post-insert-action Semicolon -debug -verbose -separator comma
+python lasercom.py -mac 40:79:12:9A:E3:88 -post-insert-action Semicolon -debug -verbose -separator comma -offset 10
 ```
 
 In this example, the application is started with the specified MAC address, the insertion option set to semicolon, debug mode enabled, verbose mode activated, and the decimal separator set to comma.

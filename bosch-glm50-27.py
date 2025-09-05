@@ -11,7 +11,7 @@ debug_mode = False  # Set debug mode to False by default
 verbose = False  # Default verbose mode
 separator = "comma"  # Default separator
 offset = 0  # Default offset in millimeters
-output_unit = "cm"  # Default output unit
+output_unit = "mm"  # Default output unit
 
 class LaserDelegate(btle.DefaultDelegate):
     def __init__(self, insert_type):

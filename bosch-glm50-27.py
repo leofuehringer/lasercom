@@ -37,7 +37,7 @@ class LaserDelegate(btle.DefaultDelegate):
             if separator == "point":
                 formatted_value = str(adjusted_value).replace(',', '.')
             else:
-                formatted_value = str(adjusted_value)
+                formatted_value = str(adjusted_value).replace('.', ',')  # Use comma as decimal separator
 
             # Copy the formatted measurement value to the clipboard
             pyperclip.copy(formatted_value)  # Copy the formatted value

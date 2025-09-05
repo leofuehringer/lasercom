@@ -45,7 +45,7 @@ Before running the application, ensure that the laser rangefinder is turned on a
 
 To run the application, use the following command:
 ```bash
-python lasercom.py [-mac <MAC_ADDRESS>] [-post-insert-action <insert_option>] [-debug]
+python3 bosch-glm50-27.py [-mac <MAC_ADDRESS>] [-post-insert-action <insert_option>] [-debug] [-separator <TYPE>] [-offset <OFFSET_VALUE>] [-outputunit <UNIT>]
 ```
 Here are the corrected argument names based on your provided code, along with an example call for the program:
 
@@ -80,13 +80,21 @@ When executing the application, the following arguments can be provided:
    - This argument allows you to specify an offset value in millimeters that will be added to the measured length. If the offset value is negative, it will be subtracted from the measured length.
    - Example: `-offset 10` (adds 10 mm to the measured length) or `-offset -5` (subtracts 5 mm from the measured length).
 
+7. **`-outputunit <UNIT>`**:
+   - This argument allows you to specify the output unit for the measured length. Possible values include:
+     - `mm`: Millimeters.
+     - `cm`: Centimeters.
+     - `m`: Meters.
+   - The measurement will be converted to the specified unit before being displayed or copied.
+   - Example: `-outputunit cm` (outputs the measurement in centimeters).
 
 ## Example of Using the Arguments
 
 To run the application with all possible arguments, the command might look like this:
 
 ```bash
-python lasercom.py -mac 40:79:12:9A:E3:88 -post-insert-action Semicolon -debug -verbose -separator comma -offset 10
+python3 bosch-glm50-27.py -mac 40:79:12:9A:E3:88 -post-insert-action Enter -debug -verbose -separator comma -offset 23 -outputunit mm
+
 ```
 
 In this example, the application is started with the specified MAC address, the insertion option set to semicolon, debug mode enabled, verbose mode activated, and the decimal separator set to comma.
